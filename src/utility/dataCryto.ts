@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-import { constants } from '../config/constants'
+import constants from '../config/constants'
 /**
  * 
  * @param dataToEncrypt This is the data that will encryped

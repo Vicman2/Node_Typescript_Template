@@ -10,7 +10,7 @@ dotenv.config()
 
 
 require('./src/middlewares/middlewares')(app)
-import  {constants as constangConfig} from  './src/config/constants'
+import  constants from  './src/config/constants'
 import database from './src/startup/database'
 import {ErrorMiddleware } from './src/middlewares/errorHandler'
 import apiRoutes from './src/routes/rootRoute'
@@ -26,7 +26,7 @@ app.use('/', (req, res)=> {
 
 // Error Middleware
 app.use(ErrorMiddleware)
-const port  = constangConfig.PORT || 2021
+const port  = constants.PORT || 2021
 server.listen(port, () => {
     database()
     console.log(`Listening on port ${port}`)

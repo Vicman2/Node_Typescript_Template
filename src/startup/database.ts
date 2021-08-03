@@ -1,9 +1,9 @@
-import mongoose from "mongoose"
-import {constants} from '../config/constants'
+import {connect} from "mongoose"
+import constants from '../config/constants'
 
 
 function databse(){
-    mongoose.connect(constants.DATABASE_URI!, { 
+    connect(constants.DATABASE_URI!, { 
         useCreateIndex: true,
         useNewUrlParser: true, 
         useUnifiedTopology: true

@@ -1,12 +1,6 @@
 import { Schema, model, Model, Document } from "mongoose";
+import { AUser } from "../Interfaces/UserInterfaces";
 import { encryptData } from "../utility/dataCryto";
-interface AUser extends Document{
-    email: string, 
-    firstname: string, 
-    lastname: string,
-    password: string, 
-    fullname: string
-}
 
 
 const UserSchema  = new Schema<AUser>({

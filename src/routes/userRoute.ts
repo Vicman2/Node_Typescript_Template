@@ -15,6 +15,9 @@ class UserRoute extends CommonRoutesConfig{
             Validator(AddUserSchema, "body"),
             UserController.addUser
         )
+        this.router.get('/login',
+            UserController.loginUser
+        )
 
         this.router.get('/fetchUsers',
             UserController.fetchUsers

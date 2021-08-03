@@ -12,6 +12,12 @@ class UserCtrl{
         const response = await UserServices.getUsers()
         res.send(appResponse("User created successfully", response))
     }
+
+    async loginUser(req:express.Request, res: express.Response){
+        const loginDetails = req.body
+        const response = await UserServices.login(loginDetails)
+        res.send(appResponse("User logedin successfully", response))
+    }
 }
 
 export default new UserCtrl()
