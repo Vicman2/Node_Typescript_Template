@@ -9,12 +9,14 @@ require('express-async-errors')
 dotenv.config()
 
 
-require('./src/middlewares/middlewares')(app)
+import starterMiddleWares from './src/middlewares/starterMiddlewares'
+
 import  constants from  './src/config/constants'
 import database from './src/startup/database'
 import {ErrorMiddleware } from './src/middlewares/errorHandler'
 import apiRoutes from './src/routes/rootRoute'
 
+starterMiddleWares(app)
 
 //endPoint
 app.use('/api', apiRoutes())

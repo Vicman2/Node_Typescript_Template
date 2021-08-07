@@ -1,5 +1,5 @@
 import { NotFoundError } from '../../lib/appError';
-import { AUser, UserLogin } from '../Interfaces/UserInterfaces';
+import { UserLogin } from '../Interfaces/UserInterfaces';
 import UserModel from '../models/userModel'
 import { encryptData } from '../utility/dataCryto';
 import constants from '../config/constants';
