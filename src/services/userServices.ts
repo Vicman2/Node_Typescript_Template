@@ -1,5 +1,5 @@
 import { NotFoundError } from '../../lib/appError';
-import { UserLogin } from '../Interfaces/UserInterfaces';
+import { GetUser, UserLogin } from '../Interfaces/UserInterfaces';
 import UserModel from '../models/userModel'
 import { encryptData } from '../utility/dataCryto';
 import constants from '../config/constants';
@@ -15,7 +15,7 @@ class UserServices{
             .findOne({email: userData.email})
 
         // Throw error if there is any
-        if(existingUser) throw new NotFoundError("User already exists ")
+        if(existingUser) throw new NotFoundError("User already exist")
 
         // Create a new user since there are now no duplicate
         const newUser = await UserModel.create(userData)
@@ -29,6 +29,7 @@ class UserServices{
             ...newUser._doc,
             token
         }
+        delete dataToSend.password
 
         return dataToSend
     }
@@ -50,6 +51,8 @@ class UserServices{
             token
         }
 
+        delete dataToSend.password
+
         return dataToSend
         
     }
@@ -57,6 +60,12 @@ class UserServices{
         const users = await UserModel.find();
         return users
     }
+
+    async getUser(userData: GetUser){
+        const user = await UserModel.findById(userData.id)
+        return user
+    }
+
 }
 
 export default new UserServices()

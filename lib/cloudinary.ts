@@ -1,41 +1,43 @@
-import  cloudinary from "cloudinary";
+import  cloudinary, { UploadApiErrorResponse, UploadApiResponse, UploadResponseCallback } from "cloudinary";
+import constants from '../src/config/constants'
 
 
 
 cloudinary.v2.config({
-	cloud_name: process.env.CLOUD_NAME,
-	api_key: process.env.API_KEY,
-	api_secret: process.env.API_SECRET,
+	cloud_name: constants.CLOUDINARY.NAME,
+	api_key:constants.CLOUDINARY.API_KEY,
+	api_secret: constants.CLOUDINARY.SECRET_KEY,
 });
 
-const uploadToCloud = (exports.uploadToCloud = function (filename: string) {
-	return new Promise((resolve, reject) => {
+const uploadAudioToCloud = function (filename: string) {
+	return new Promise<UploadApiResponse | UploadApiResponse>((resolve, reject) => {
 		cloudinary.v2.uploader.upload(
 			filename,
-			function (result: any) {
-				resolve({ url: result.secure_url, public_id: result.public_id });
-			},
+			{folder: "Streaming/Audio", resource_type: "video"},
+			function (err?: UploadApiErrorResponse, result?: UploadApiResponse)  {
+				if(err) reject(err)
+				if(result) resolve(result)
+			}
 		);
 	});
-});
+};
 
-// exports.getImageThumbnail = function (uploadResult) {
-// 	return cloudinary.url(uploadResult.public_id, {
-// 		width: 320,
-// 		height: 320,
-// 		crop: "fill",
-// 	});
-// };
+const uploadToCloud = function (filename: string) {
+	return new Promise<UploadApiResponse | UploadApiResponse>((resolve, reject) => {
+		cloudinary.v2.uploader.upload(
+			filename,
+			{folder: "Streaming/MusicPictures"},
+			function (err?: UploadApiErrorResponse, result?: UploadApiResponse)  {
+				if(err) reject(err)
+				if(result) resolve(result)
+			}
+		);
+	});
+};
 
-// exports.upload = function(file){
-//     return new Promise(resolve => {
-//         cloudinary.uploader.upload(file, function(result){
-//             resolve({url: result.secure_url, Id: result.public_id});
-//         }, {resource_type: "auto"})
-//    })
-// }
 
-exports.deleteFromCloud = function (publicID: string) {
+
+const deleteFromCloud = function (publicID: string) {
 	return new Promise((resolve, reject) => {
 		cloudinary.v2.uploader.destroy(publicID, function (result) {
 			resolve(result);
@@ -43,7 +45,7 @@ exports.deleteFromCloud = function (publicID: string) {
 	});
 };
 
-exports.multipleUpload = async function (filenames = []) {
+const multipleUpload = async function (filenames: string[]) {
 	try {
 		const result = await Promise.all(filenames.map(uploadToCloud));
 		return result;
@@ -51,3 +53,11 @@ exports.multipleUpload = async function (filenames = []) {
 		throw error;
 	}
 };
+
+
+export{
+	uploadToCloud, 
+	deleteFromCloud, 
+	multipleUpload, 
+	uploadAudioToCloud, 
+}

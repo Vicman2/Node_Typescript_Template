@@ -9,14 +9,15 @@ const storage = multer.diskStorage({
 	destination: function (req: express.Request, file: any, cb) {
 		let dir = process.cwd();
 		//Sets destination for fileType
-		if (
-			path.extname(file.originalname) === ".jpeg" ||
-			path.extname(file.originalname) === ".png" ||
-			path.extname(file.originalname) === ".jpg"
-		) {
+		const imageFormates = [".jpeg", ".png", ".jpg"]
+		const musicFormat = [".mp3"]
+
+		if(imageFormates.includes(path.extname(file.originalname))){
 			dir = dir + `/uploads/images`;
-		} else {
-			dir = dir + `/uploads/pdfs`;
+		} else if(musicFormat.includes(path.extname(file.originalname))){
+			dir = dir + `/uploads/music`;
+		} else{
+			dir = dir + `/uploads/otherFiles`;
 		}
 
 		fs.mkdir(dir, { recursive: true }, (err) => cb(err, dir));
@@ -27,22 +28,17 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = function (req: express.Request, file: any, callback: any) {
-	const allowedFileTypes = ["image/jpeg", "image/png", "application/pdf", "application/msword",
-	"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-	"application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
 
-	const checkFilesExist = allowedFileTypes.includes(file.mimetype);
-	const fileExtCheck = path.extname(file.originalname) === ".jpeg" ||
-	path.extname(file.originalname) === ".png" ||
-	path.extname(file.originalname) === ".jpg" || path.extname(file.originalname) === ".pdf" || 
-	path.extname(file.originalname) === ".docs" || path.extname(file.originalname) === ".docs"
-	
-	if (checkFilesExist || fileExtCheck) {
+	const allFileFormat = [".jpeg", ".png", ".jpg", ".mp3"]
+
+	const fileExtCheck = allFileFormat.includes(path.extname(file.originalname))
+
+	if (fileExtCheck) {
 		callback(null, true);
 	} else {
 		callback(
 			new BadRequestError(
-				"Image upload failed. Supports only jpeg, png, doc and pdf files"
+				"Image upload failed. Supports only .jpeg, .png, .jpg, .mp3"
 			),
 			false
 		);
@@ -54,10 +50,12 @@ const fileSize = function (): number {
 	return size
 };
 
-exports.upload = multer({
+const upload =  multer({
 	storage: storage,
 	limits: {
 		fileSize: fileSize(),
 	},
 	fileFilter: fileFilter,
 });
+
+export default upload

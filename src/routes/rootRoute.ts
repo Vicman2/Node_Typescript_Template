@@ -1,13 +1,13 @@
 import express from 'express';
-import {CommonRoutesConfig} from './commonRoute';
 import UserRoute from './userRoute';
+import MusicRoute from './musicRoute'
 
 const router = express.Router()
-function rootRoute(){
-    router.use('/users', UserRoute.configureRoutes())
 
-    return router
-}
 
-export default rootRoute
+router.use('/users', UserRoute)
+router.use('/music', MusicRoute)
+
+
+export default router
 

@@ -19,7 +19,7 @@ import apiRoutes from './src/routes/rootRoute'
 starterMiddleWares(app)
 
 //endPoint
-app.use('/api', apiRoutes())
+app.use('/api', apiRoutes)
 
 //Initial home route
 app.use('/', (req, res)=> {

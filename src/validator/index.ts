@@ -2,7 +2,7 @@ import Joi from 'joi'
 import express from 'express'
 import { BadRequestError } from '../../lib/appError';
 
-type Source = "body" | "query" | "params"
+type Source = "body" | "query" | "params" | "file" | "files"
 
 /**
  * 
@@ -12,7 +12,7 @@ type Source = "body" | "query" | "params"
  */
 
 
-const Validator  = (schema: Joi.ObjectSchema, source : Source) => (req: express.Request , res: express.Response,  next: express.NextFunction) => {
+const Validator  = (schema: Joi.ObjectSchema | Joi.ArraySchema, source : Source) => (req: express.Request , res: express.Response,  next: express.NextFunction) => {
 	
 	const result = schema.validate(req[source])
 

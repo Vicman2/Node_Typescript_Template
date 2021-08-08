@@ -1,29 +1,22 @@
 import express from 'express';
-import { CommonRoutesConfig } from './commonRoute';
 import UserController from '../controllers/userController'
 import { Validator } from '../validator';
 import { AddUserSchema } from '../validator/userSchema';
 
+const router = express.Router()
 
-class UserRoute extends CommonRoutesConfig{
-    constructor(router: express.Router) {
-        super(router, 'UsersRoutes');
-    }
-    
-    configureRoutes(){
-        this.router.post('/addUser',
-            Validator(AddUserSchema, "body"),
-            UserController.addUser
-        )
-        this.router.get('/login',
-            UserController.loginUser
-        )
+router.post('/addUser',
+    Validator(AddUserSchema, "body"),
+    UserController.addUser
+)
 
-        this.router.get('/fetchUsers',
-            UserController.fetchUsers
-        )
-        return this.router
-    }
-}
+router.get('/login',
+    UserController.loginUser
+)
 
-export default new UserRoute(express.Router())
+router.get('/fetchUsers',
+    UserController.fetchUsers
+)
+
+
+export default router

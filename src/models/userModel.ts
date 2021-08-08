@@ -1,11 +1,12 @@
-import { Schema, model, Model, Document } from "mongoose";
+import { Schema, model, Model} from "mongoose";
 import { AUser } from "../Interfaces/UserInterfaces";
-import { encryptData } from "../utility/dataCryto";
+import { encryptData, hashString } from "../utility/dataCryto";
 
 
 const UserSchema  = new Schema<AUser>({
     email: {
         type: String, 
+        unique: true,
         required: true
     }, 
     firstname: {
@@ -22,9 +23,6 @@ const UserSchema  = new Schema<AUser>({
     }
 })
 
-UserSchema.virtual("fullname").get(function(this: AUser){
-    return `${this.firstname} ${this.lastname}`
-})
 
 UserSchema.methods.generateToken = async function(){
     const user = this
@@ -39,12 +37,14 @@ UserSchema.methods.generateToken = async function(){
     
 }
 
-// UserSchema.pre("save", async function(next){
-//     const user = this
-//     if(user.isModified("password") || user.isNew){
-
-//     }
-// })
+UserSchema.pre("save", async function(next){
+    const user = this
+    if(user.isModified("password") || user.isNew){
+        const hashedString = await hashString(user.password)
+        user.password = hashedString
+    }
+    next()
+})
 
 const UserModel:Model<AUser>  = model("User", UserSchema)
 

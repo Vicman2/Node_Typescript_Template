@@ -12,8 +12,14 @@ interface UserLogin{
     password: string
 }
 
+interface GetUser{
+    email?: string, 
+    id: string, 
+}
+
 
 export {
     AUser, 
-    UserLogin
+    UserLogin, 
+    GetUser
 }
