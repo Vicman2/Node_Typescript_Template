@@ -59,13 +59,17 @@ class UserServices{
         
     }
     async getUsers(){
-        const users = await UserModel.find();
+        const users = await UserModel
+            .find()
+            .select("-password")
         return users
     }
 
     async getUser(userData:any, data: any){
         // Authenticate the person making the request
-        const user = await UserModel.findById(userData.id)
+        const user = await UserModel
+            .findById(userData.id)
+            .select("-password")
         if(!user) throw new UnAuthorizedError("User does not exist")
 
         // Fetch the user which the request was all about
@@ -91,6 +95,7 @@ class UserServices{
         // Update the document and return
         const updatedDocument = await UserModel
             .findByIdAndUpdate(artistData.id, theArtist, {new: true})
+            .select("-password")
 
         return updatedDocument
     }
