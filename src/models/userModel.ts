@@ -20,6 +20,13 @@ const UserSchema  = new Schema<AUser>({
     password: {
         type: String, 
         required: true
+    }, 
+    isArtist: {
+        type: Boolean, 
+        default: false
+    }, 
+    about: {
+        type:String
     }
 })
 

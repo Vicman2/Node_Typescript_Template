@@ -10,7 +10,7 @@ const MusicSchema  = new Schema<IMusic>({
         required: true
     }, 
     artist: {
-        type: String, 
+        type: Schema.Types.ObjectId, 
         required: true
     }, 
     audioLink: {
