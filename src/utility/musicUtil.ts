@@ -22,7 +22,7 @@ function checkMusicFilesForUpload(musicFiles: any, state: string ="add"){
     const audioFile = musicFiles   
         .find((file: any) => audioFormats.includes(path.extname(file.originalname)))
     if(!audioFile && state == "add")
-        throw new BadRequestError("Please, add an image file to the request")
+        throw new BadRequestError("Please, add an audio file to the request")
     
 
     return {

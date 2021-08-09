@@ -57,7 +57,7 @@ class Music{
         const user = await userModel.findById(userData.id)
         if(!user) throw new UnAuthorizedError("User do not exist")
 
-        const exisitingMusic = await musicModel.findOne({_id: musicData._id})
+        const exisitingMusic = await musicModel.findOne({_id: musicData.id})
         if(!exisitingMusic) throw new UnAuthorizedError("Music do not exist")
 
         return exisitingMusic
@@ -94,7 +94,7 @@ class Music{
 
         if(musicData.files){
             // Check if there are files
-            let filesForUpload = checkMusicFilesForUpload(musicData.files);
+            let filesForUpload = checkMusicFilesForUpload(musicData.files, "edit");
 
             // Check if there is any imageUpload 
             let cloudinaryImage = null

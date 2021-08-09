@@ -29,6 +29,7 @@ class MusicCtrl{
 
     async editMusic(req:AuthRequest, res: express.Response){
         const musicData = {
+            ...req.params,
             ...req.body, 
             files: req.files
         }
