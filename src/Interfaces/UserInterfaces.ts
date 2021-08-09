@@ -4,6 +4,9 @@ interface AUser extends Document{
     lastname: string,
     password: string, 
     fullname: string, 
+    role: string,
+    isArtist:boolean, 
+    about: string
     _doc: any
 }
 
@@ -17,9 +20,27 @@ interface GetUser{
     id: string, 
 }
 
+// This is the type of data that will be encrypted in JWT
+
+
+
+interface AuthUser{
+    id: string, 
+    email:string,
+    role: string, 
+    iat: number
+}
+
+interface ArtistData{
+    id: string,
+    about: string
+}
+
 
 export {
     AUser, 
     UserLogin, 
-    GetUser
+    GetUser, 
+    AuthUser, 
+    ArtistData
 }

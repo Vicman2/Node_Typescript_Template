@@ -64,13 +64,13 @@ class Music{
     }
 
     // Fethces all Music 
-    async getAllMusic(userData: any, musicData: any){
+    async getManyMusic(userData: any){
         const user = await userModel.findById(userData.id)
         if(!user) throw new UnAuthorizedError("User do not exist")
 
-        const exisitingMusic = await musicModel.find({_id: musicData._id})
+        const exisitingMusic = await musicModel
+            .find()
             .populate("artist")
-        if(!exisitingMusic) throw new UnAuthorizedError("Music do not exist")
 
         return exisitingMusic
     }
@@ -125,7 +125,8 @@ class Music{
         // Remove the fields that are not needed fot the update and update the docucment
         let {id, files, ...dataToSave} = musicData
 
-        const updatedDocument = await musicModel.findOneAndUpdate({_id: musicData.id}, dataToSave)
+        const updatedDocument = await musicModel
+            .findOneAndUpdate({_id: musicData.id}, dataToSave, {new:true})
 
         return updatedDocument
     }

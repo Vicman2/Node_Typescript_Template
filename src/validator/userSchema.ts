@@ -9,6 +9,12 @@ const AddUserSchema = Joi.object({
 })
 
 
+const MakeArtistSchema = Joi.object({
+    about: Joi.string().required()
+})
+
+
 export {
-    AddUserSchema
+    AddUserSchema, 
+    MakeArtistSchema
 }

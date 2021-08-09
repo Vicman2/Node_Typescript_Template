@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken'
+import jwt, { JwtPayload } from 'jsonwebtoken'
 import constants from '../config/constants'
 import bcrypt from 'bcrypt'
 
@@ -25,9 +25,10 @@ const encryptData = function (dataToEncrypt: object, expirationTime:number){
  * @returns 
  */
 
-const decryptData = function(tokenToDecrypt: string){
+const decryptData = function(tokenToDecrypt: string): JwtPayload{
     const decryptedData = jwt
         .verify(tokenToDecrypt, constants.JWT_PUBLIC_KEY!)
+    if(typeof decryptedData ==="string") throw new Error("Invalid token")
     return decryptedData
 }
 

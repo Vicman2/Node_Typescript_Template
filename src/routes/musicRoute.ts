@@ -3,6 +3,8 @@ import MusicController from '../controllers/musicController'
 import upload from '../../lib/multer';
 import { Validator } from '../validator';
 import { AddMusicFileSchema, AddMusicTextDataSchema } from '../validator/musicSchema';
+import { authentication } from '../middlewares/auth';
+import { ParamIdSchema } from '../validator/utilValidator';
 
 const router = express.Router()
 
@@ -10,7 +12,33 @@ router.post('/addMusic',
     upload.array("musicFile"),
     Validator(AddMusicFileSchema, "files"),
     Validator(AddMusicTextDataSchema, "body"),
+    authentication,
     MusicController.addMusic
+)
+
+router.get('/getMusic', 
+    Validator(ParamIdSchema, "params"),
+    authentication, 
+    MusicController.getMusic
+)
+
+router.get('/getMany', 
+    authentication, 
+    MusicController.getManyMusic
+)
+
+router.put('/editMusic', 
+    upload.array("musicFile"),
+    Validator(AddMusicFileSchema, "files"),
+    Validator(AddMusicTextDataSchema, "body"),
+    authentication,
+    MusicController.editMusic
+)
+
+router.delete('/deleteMusic',
+    Validator(ParamIdSchema, "params"),
+    authentication, 
+    MusicController.deleteMusic
 )
 
 

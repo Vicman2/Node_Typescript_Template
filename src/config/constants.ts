@@ -9,6 +9,12 @@ const  constants = {
         NAME: process.env.CLOUDINARY_NAME, 
         API_KEY: process.env.CLOUDINARY_API_KEY, 
         SECRET_KEY: process.env.CLOUDINARY_SECRET_KEY
+    }, 
+    //User roles 
+
+    ROLE: {
+        ADMIN: "admin", 
+        USER: "user"
     }
 }
 

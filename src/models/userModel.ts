@@ -1,6 +1,7 @@
 import { Schema, model, Model} from "mongoose";
 import { AUser } from "../Interfaces/UserInterfaces";
 import { encryptData, hashString } from "../utility/dataCryto";
+import constants from '../config/constants'
 
 
 const UserSchema  = new Schema<AUser>({
@@ -27,6 +28,11 @@ const UserSchema  = new Schema<AUser>({
     }, 
     about: {
         type:String
+    }, 
+    role: {
+        type:String,
+        enum: [constants.ROLE.USER, constants.ROLE.ADMIN],
+        default: constants.ROLE.USER
     }
 })
 
