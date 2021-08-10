@@ -4,6 +4,7 @@ import {
     UnAuthorizedError 
 } from "../../lib/appError"
 import { uploadAudioToCloud, uploadToCloud } from "../../lib/cloudinary"
+import { redisAsync, redisClient } from "../../lib/redis"
 import { AuthUser } from "../Interfaces/UserInterfaces"
 import musicModel from "../models/musicModel"
 import userModel from "../models/userModel"
@@ -69,11 +70,20 @@ class Music{
         const user = await userModel.findById(userData.id)
         if(!user) throw new UnAuthorizedError("User do not exist")
 
+        const cachedMusicData = await redisAsync.getAsync("ManyMusic")
+
+        if(cachedMusicData) return JSON.parse(cachedMusicData);
+
+
         const exisitingMusic = await musicModel
             .find()
             .populate("artist")
 
+        // Add it to redis server
+        redisClient.setex("ManyMusic", 120, JSON.stringify(exisitingMusic))
+
         return exisitingMusic
+
     }
 
     // Update a particular music
