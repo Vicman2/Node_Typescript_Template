@@ -9,20 +9,20 @@ class MusicCtrl{
             ...req.body, 
             files: req.files
         }
-        const userData = req.user
+        const userData = req.user!
         const response = await musicServices.addMusic(userData, musicData)
         res.status(201).send(appResponse("Music added successfully", response))
     }
 
     async getMusic(req:AuthRequest, res: express.Response){
-        const userData = req.user
+        const userData = req.user!
         const musicData = {...req.params}
         const response = await musicServices.getMusic(userData, musicData)
         res.status(200).send(appResponse("Music fetched successfully", response))
     }
 
     async getManyMusic(req:AuthRequest, res: express.Response){
-        const userData = req.user
+        const userData = req.user!
         const response = await musicServices.getManyMusic(userData)
         res.status(200).send(appResponse("Music fetched successfully", response))
     }
@@ -33,13 +33,13 @@ class MusicCtrl{
             ...req.body, 
             files: req.files
         }
-        const userData = req.user
+        const userData = req.user!
         const response = await musicServices.updateMusic(userData, musicData)
         res.status(200).send(appResponse("Music updated successfully", response))
     }
 
     async deleteMusic(req: AuthRequest, res: express.Response){
-        const userData = req.user
+        const userData = req.user!
         const musicData = {...req.params}
         const response = await musicServices.deleteMuisc(userData, musicData)
         res.status(200).send(appResponse("Music deleted successfully", response))

@@ -4,6 +4,7 @@ import {
     UnAuthorizedError 
 } from "../../lib/appError"
 import { uploadAudioToCloud, uploadToCloud } from "../../lib/cloudinary"
+import { AuthUser } from "../Interfaces/UserInterfaces"
 import musicModel from "../models/musicModel"
 import userModel from "../models/userModel"
 import { checkMusicFilesForUpload } from '../utility/musicUtil'
@@ -11,7 +12,7 @@ import { checkMusicFilesForUpload } from '../utility/musicUtil'
 class Music{
 
     // Add a new music
-    async addMusic(userData: any, musicData: any){
+    async addMusic(userData: AuthUser, musicData: any){
         const user = await userModel.findById(userData.id)
         if(!user) throw new UnAuthorizedError("User do not exist")
 
@@ -53,7 +54,7 @@ class Music{
     }
 
     // Fetch a particular music
-    async getMusic(userData: any, musicData: any){
+    async getMusic(userData: AuthUser, musicData: any){
         const user = await userModel.findById(userData.id)
         if(!user) throw new UnAuthorizedError("User do not exist")
 
@@ -64,7 +65,7 @@ class Music{
     }
 
     // Fethces all Music 
-    async getManyMusic(userData: any){
+    async getManyMusic(userData: AuthUser){
         const user = await userModel.findById(userData.id)
         if(!user) throw new UnAuthorizedError("User do not exist")
 
@@ -76,7 +77,7 @@ class Music{
     }
 
     // Update a particular music
-    async updateMusic(userData: any, musicData: any){
+    async updateMusic(userData: AuthUser, musicData: any){
 
         // Check of the user exists
         const user = await userModel.findById(userData.id)
@@ -132,7 +133,7 @@ class Music{
     }
 
     // Delete a particular music
-    async deleteMuisc(userData: any, musicData: any){
+    async deleteMuisc(userData: AuthUser, musicData: any){
         // Check of the user exists
         const user = await userModel.findById(userData.id)
         if(!user) throw new UnAuthorizedError("User do not exist")

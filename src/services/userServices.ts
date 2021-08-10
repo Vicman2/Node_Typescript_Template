@@ -1,5 +1,5 @@
 import { NotFoundError, UnAuthorizedError } from '../../lib/appError';
-import { ArtistData, GetUser, UserLogin } from '../Interfaces/UserInterfaces';
+import { ArtistData, AuthUser, UserLogin } from '../Interfaces/UserInterfaces';
 import UserModel from '../models/userModel'
 import { encryptData } from '../utility/dataCryto';
 import constants from '../config/constants';
@@ -8,7 +8,7 @@ import constants from '../config/constants';
 
 
 class UserServices{
-    async addUser(userData: any){
+    async addUser(userData: AuthUser){
 
         // Check if the user exists 
         const existingUser = await UserModel
@@ -65,7 +65,7 @@ class UserServices{
         return users
     }
 
-    async getUser(userData:any, data: any){
+    async getUser(userData:AuthUser, data: any){
         // Authenticate the person making the request
         const user = await UserModel
             .findById(userData.id)
@@ -79,7 +79,7 @@ class UserServices{
         return userToFetch
     }
 
-    async makeArtist(userData:any, artistData: ArtistData){
+    async makeArtist(userData:AuthUser, artistData: ArtistData){
         // Authenticate the person making the request
         const user = await UserModel.findById(userData.id)
         if(!user) throw new UnAuthorizedError("User does not exist")

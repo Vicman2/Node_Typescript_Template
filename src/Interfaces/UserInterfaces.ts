@@ -27,8 +27,7 @@ interface GetUser{
 interface AuthUser{
     id: string, 
     email:string,
-    role: string, 
-    iat: number
+    role: string
 }
 
 interface ArtistData{

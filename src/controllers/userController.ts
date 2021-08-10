@@ -22,14 +22,14 @@ class UserCtrl{
     }
 
     async fetchUser(req: AuthRequest, res: express.Response){
-        const userData = req.user
+        const userData = req.user!
         const fetchData = req.params
         const response = await UserServices.getUser(userData,fetchData )
         res.send(appResponse("User fetched successfully", response))
     }
 
     async makeArtist(req: AuthRequest, res: express.Response){
-        const userData = req.user
+        const userData = req.user!
         const artistData = {
             ...req.params, 
             ...req.body
