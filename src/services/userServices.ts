@@ -3,6 +3,7 @@ import { ArtistData, AuthUser, UserLogin } from '../Interfaces/UserInterfaces';
 import UserModel from '../models/userModel'
 import { encryptData } from '../utility/dataCryto';
 import constants from '../config/constants';
+import sendSignUpEmail from '../utility/emails/emailConfig/SignUpEmailConfig';
 
 
 
@@ -30,6 +31,14 @@ class UserServices{
             ...newUser._doc,
             token
         }
+
+        // Send Email to user
+        await sendSignUpEmail({
+            name:newUser.firstname, 
+            email: newUser.email
+        })
+
+
         delete dataToSend.password
 
         return dataToSend

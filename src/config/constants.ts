@@ -15,6 +15,11 @@ const  constants = {
     ROLE: {
         ADMIN: "admin", 
         USER: "user"
+    },
+
+    // Compny Emails
+    COMPANY_EMAIL: {
+        HELP: "vicmanthebest@gmail.com" // Just for demo
     }
 }
 
