@@ -12,7 +12,7 @@ type Source = "body" | "query" | "params" | "file" | "files"
  */
 
 
-const Validator  = (schema: Joi.ObjectSchema | Joi.ArraySchema, source : Source) => (req: express.Request , res: express.Response,  next: express.NextFunction) => {
+const Validator  = (schema: Joi.ObjectSchema | Joi.ArraySchema, source : Source = "body") => (req: express.Request , res: express.Response,  next: express.NextFunction) => {
 	
 	const result = schema.validate(req[source])
 

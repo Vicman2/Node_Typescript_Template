@@ -11,11 +11,13 @@ const MusicSchema  = new Schema<IMusic>({
     }, 
     artist: {
         type: Schema.Types.ObjectId, 
-        required: true
+        required: true, 
+        ref: "User"
     }, 
     likes: [{
         type: Schema.Types.ObjectId,
-        required: true
+        required: true, 
+        ref: "User"
     }],
     audioLink: {
         public_id:{
@@ -43,6 +45,6 @@ const MusicSchema  = new Schema<IMusic>({
     }
 })
 
-const UserModel:Model<IMusic>  = model("Music", MusicSchema)
+const MusicModel:Model<IMusic>  = model("Music", MusicSchema)
 
-export default UserModel
+export default MusicModel

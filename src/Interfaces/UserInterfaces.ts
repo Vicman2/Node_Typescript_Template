@@ -1,3 +1,5 @@
+import {PlayList} from './PlaylistInterface'
+import {PopulatedDoc, Document} from "mongoose"
 interface AUser extends Document{
     email: string, 
     firstname: string, 
@@ -6,7 +8,7 @@ interface AUser extends Document{
     fullname: string, 
     role: string,
     isArtist:boolean, 
-    playList: string[],
+    playlist: PopulatedDoc<PlayList & Document>[], 
     about: string
     _doc: any
 }

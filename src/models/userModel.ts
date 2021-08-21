@@ -29,9 +29,10 @@ const UserSchema  = new Schema<AUser>({
     about: {
         type:String
     }, 
-    playList: [{
+    playlist: [{
         type: Schema.Types.ObjectId, 
-        required: true
+        required: true, 
+        ref: "Playlist"
     }],
     role: {
         type:String,

@@ -1,5 +1,5 @@
 import { Schema, model, Model} from "mongoose";
-import { PlayList } from "../Interfaces/PlayListInterface";
+import { PlayList } from "../Interfaces/PlaylistInterface";
 
 
 const PlaylistSchema  = new Schema<PlayList>({
@@ -20,6 +20,6 @@ const PlaylistSchema  = new Schema<PlayList>({
     }]
 })
 
-const UserModel:Model<PlayList>  = model("PlayList", PlaylistSchema)
+const PlaylistModel:Model<PlayList>  = model("Playlist", PlaylistSchema)
 
-export default UserModel
+export default PlaylistModel

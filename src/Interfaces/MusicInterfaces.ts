@@ -1,11 +1,13 @@
+import {Document, PopulatedDoc} from 'mongoose'
+import {AUser} from "./UserInterfaces"
 /**
  * All the interface that entails of music are all here
  */
 
 interface IMusic{
     name: string, 
-    artist: string, 
-    likes: string[],
+    artist: PopulatedDoc<AUser & Document>, 
+    likes: PopulatedDoc<AUser & Document>[],
     audioLink:CloudinaryLink
     imageLink: CloudinaryLink,
     category: string
