@@ -44,6 +44,13 @@ class MusicCtrl{
         const response = await musicServices.deleteMuisc(userData, musicData)
         res.status(200).send(appResponse("Music deleted successfully", response))
     }
+
+    async likeMusic(req: AuthRequest, res: express.Response){
+        const userData = req.user!
+        const {id} = req.params
+        const response = await musicServices.likeMusic(userData, id)
+        res.status(200).send(appResponse("Music liked successfully", response))
+    }
 }
 
 export default new MusicCtrl()

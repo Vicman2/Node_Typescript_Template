@@ -6,6 +6,7 @@ interface AUser extends Document{
     fullname: string, 
     role: string,
     isArtist:boolean, 
+    playList: string[],
     about: string
     _doc: any
 }

@@ -13,6 +13,10 @@ const MusicSchema  = new Schema<IMusic>({
         type: Schema.Types.ObjectId, 
         required: true
     }, 
+    likes: [{
+        type: Schema.Types.ObjectId,
+        required: true
+    }],
     audioLink: {
         public_id:{
             type: String, 

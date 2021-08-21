@@ -5,6 +5,7 @@
 interface IMusic{
     name: string, 
     artist: string, 
+    likes: string[],
     audioLink:CloudinaryLink
     imageLink: CloudinaryLink,
     category: string

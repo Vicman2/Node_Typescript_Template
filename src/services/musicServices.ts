@@ -156,6 +156,26 @@ class Music{
 
         return deletedMusic
     }
+
+    async likeMusic(userData:AuthUser, musicId: string){
+        // Check of the user exists
+        const user = await userModel.findById(userData.id)
+        if(!user) throw new UnAuthorizedError("User do not exist")
+
+        // Check if the music to like exist
+        const exisitingMusic = await musicModel.findOne({_id: musicId})
+        if(!exisitingMusic) throw new UnAuthorizedError("Music do not exist")
+
+        // Check if user already liked music and throw an error
+        let isMusicLiked = exisitingMusic.likes
+            .find(likedUser => likedUser.toString() === user._id.toString() )
+        if(isMusicLiked) throw new BadRequestError("User already liked music")
+
+        const updatedMusic = await musicModel
+            .findOneAndUpdate({_id: musicId},{$push: {likes: user._id}}, {new: true})
+        
+        return updatedMusic
+    }
 }
 
 

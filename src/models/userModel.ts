@@ -29,6 +29,10 @@ const UserSchema  = new Schema<AUser>({
     about: {
         type:String
     }, 
+    playList: [{
+        type: Schema.Types.ObjectId, 
+        required: true
+    }],
     role: {
         type:String,
         enum: [constants.ROLE.USER, constants.ROLE.ADMIN],

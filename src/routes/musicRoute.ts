@@ -36,6 +36,12 @@ router.put('/editMusic/:id',
     MusicController.editMusic
 )
 
+router.put('/likeMusic/:id', 
+    Validator(ParamIdSchema, "params"),
+    authentication,
+    MusicController.likeMusic
+)
+
 router.delete('/deleteMusic/:id',
     Validator(ParamIdSchema, "params"),
     authentication, 
