@@ -9,7 +9,9 @@ interface AUser extends Document{
     role: string,
     isArtist:boolean, 
     playlist: PopulatedDoc<PlayList & Document>[], 
-    about: string
+    about: string, 
+    followers: PopulatedDoc<string & Document>[], 
+    following: PopulatedDoc<string & Document>[]
     _doc: any
 }
 

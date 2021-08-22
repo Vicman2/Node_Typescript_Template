@@ -1,9 +1,10 @@
-import { NotFoundError, UnAuthorizedError } from '../../lib/appError';
+import { BadRequestError, NotFoundError, UnAuthorizedError } from '../../lib/appError';
 import { ArtistData, AuthUser, UserLogin } from '../Interfaces/UserInterfaces';
 import UserModel from '../models/userModel'
 import { encryptData } from '../utility/dataCryto';
 import constants from '../config/constants';
 import sendSignUpEmail from '../utility/emails/emailConfig/SignUpEmailConfig';
+import  mogoose from 'mongoose';
 
 
 
@@ -95,7 +96,11 @@ class UserServices{
 
 
         const theArtist = await UserModel.findById(artistData.id)
-        if(!theArtist) throw new NotFoundError("User to be made artist not found")
+        if(!theArtist) 
+            throw new NotFoundError("User to be made artist not found")
+
+        if(theArtist.isArtist)
+            throw new BadRequestError("User is already an artist")
 
         // Make ther person an artist
         theArtist.isArtist = true
@@ -108,6 +113,50 @@ class UserServices{
 
         return updatedDocument
     }
+
+    // Follow user
+    async followAndUnfollowUser(userData: AuthUser, followerId: string){
+        // Authenticate the user
+        const following = await UserModel.findById(userData.id)
+        if(!following) throw new UnAuthorizedError("User does not exist")
+
+        // Check if artist exists
+        const follower = await UserModel.findById(followerId)
+        if(!follower) 
+            throw new NotFoundError("Artist do not exist")
+
+        // Check if the userId is already in the followers array
+        const existingFollower = [...follower.followers]
+            .find(user => user.toString() === userData.id.toString())
+        
+        // If the user exist, remove from the followers of the follower
+        // Also remove from the following of the following
+        let userToReturn = null
+        if(existingFollower){
+            console.log("Heyyyyy 1")
+                await UserModel.findOneAndUpdate({_id: follower._id}, {
+                    $pull: {followers: mogoose.Types.ObjectId(following._id)}
+                }, {new: true})
+
+                userToReturn = await UserModel.findOneAndUpdate({_id: following._id}, {
+                    $pull: {following: mogoose.Types.ObjectId(follower._id)}
+                }, {new: true})
+        }else{
+            // If the user does not exist, add to the followers of the follower
+            // Also add to the following of the following
+
+            await UserModel.findOneAndUpdate({_id: follower._id}, {
+                $push: {followers: mogoose.Types.ObjectId(following._id)}
+            }, {new: true})
+
+            userToReturn = await UserModel.findOneAndUpdate({_id: following._id}, {
+                $push: {following: mogoose.Types.ObjectId(follower._id)}
+            }, {new: true})
+        }
+
+        return userToReturn
+
+    }   
 
 }
 

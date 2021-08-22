@@ -35,4 +35,10 @@ router.put("/makeArtist/:id",
     UserController.makeArtist
 )
 
+router.patch("/followAndUnfollow/:id", 
+    Validator(ParamIdSchema, "params"),
+    authentication, 
+    UserController.followAndUnfollowUser
+)
+
 export default router

@@ -38,7 +38,17 @@ const UserSchema  = new Schema<AUser>({
         type:String,
         enum: [constants.ROLE.USER, constants.ROLE.ADMIN],
         default: constants.ROLE.USER
-    }
+    }, 
+    followers: [{
+        type: Schema.Types.ObjectId, 
+        required: true, 
+        ref: "User"
+    }],
+    following: [{
+        type: Schema.Types.ObjectId, 
+        required: true, 
+        ref: "User"
+    }]
 })
 
 

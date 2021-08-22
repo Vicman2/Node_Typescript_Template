@@ -38,6 +38,13 @@ class UserCtrl{
         res.send(appResponse("User made artist successfully", response))
 
     }
+
+    async followAndUnfollowUser(req: AuthRequest, res: express.Response){
+        const userData = req.user!
+        const {id} = req.params
+        const response = await UserServices.followAndUnfollowUser(userData,id )
+        res.send(appResponse("User followed fetched successfully", response))
+    }
 }
 
 export default new UserCtrl()
