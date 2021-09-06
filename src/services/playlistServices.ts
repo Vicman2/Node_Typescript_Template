@@ -38,15 +38,21 @@ class Playlist{
         
          // Create a new playlist
 
-        let paylistData = {
+        let paylistDataToSave = {
             name: playlistData.name, 
             information: playlistData.information, 
             music: playlistData.music
         }
 
-        return await playlistModel.create(playlistData) 
+        return await playlistModel.create(paylistDataToSave) 
         
     }
+
+    // async getPlaylist(userData){}
+
+    // async editPlaylist(userData, playlistId){}
+
+    // async deletePlaylist(userData, playlistId){}
 }
 
 

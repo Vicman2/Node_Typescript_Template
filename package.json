@@ -5,8 +5,11 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev --respawn app.ts",
-    "start": "ts-node  app.ts",
-    "build": "tsc"
+    "start": "node  dist/app.js",
+    "postinstall": "tsc",
+    "watch-node": "nodemon dist/app.js",
+    "build": "tsc", 
+    "deploy": "git add . && git commit -m Heroku && git push heroku master"
   },
   "author": "Vicman",
   "license": "ISC",

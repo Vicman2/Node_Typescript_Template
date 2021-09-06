@@ -133,7 +133,6 @@ class UserServices{
         // Also remove from the following of the following
         let userToReturn = null
         if(existingFollower){
-            console.log("Heyyyyy 1")
                 await UserModel.findOneAndUpdate({_id: follower._id}, {
                     $pull: {followers: mogoose.Types.ObjectId(following._id)}
                 }, {new: true})
