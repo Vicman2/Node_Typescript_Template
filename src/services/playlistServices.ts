@@ -25,7 +25,7 @@ class Playlist{
         
         // Transform the musicList ids sent to objectId
         const transformedId = playlistData.music
-            .map(id => mongoose.Types.ObjectId(id))
+            .map((id: string) => mongoose.Types.ObjectId(id))
 
 
         // Check if one of the music sent do not exist
