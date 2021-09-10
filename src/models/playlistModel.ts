@@ -1,5 +1,5 @@
 import { Schema, model, Model} from "mongoose";
-import { PlayList } from "../Interfaces/PlaylistInterface";
+import { PlayList } from "../Interfaces/PlayListInterface";
 
 
 const PlaylistSchema  = new Schema<PlayList>({

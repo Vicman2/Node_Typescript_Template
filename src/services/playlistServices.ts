@@ -1,6 +1,6 @@
 import  mongoose from "mongoose";
 import { BadRequestError, UnAuthorizedError } from "../../lib/appError";
-import { PlayList } from "../Interfaces/PlaylistInterface";
+import { PlayList } from "../Interfaces/PlayListInterface";
 import { AuthUser } from "../Interfaces/UserInterfaces";
 import musicModel from "../models/musicModel";
 import playlistModel from "../models/playlistModel";

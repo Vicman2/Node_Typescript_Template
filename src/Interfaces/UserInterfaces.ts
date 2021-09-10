@@ -1,5 +1,5 @@
 
-import {PlayList} from './PlaylistInterface'
+import {PlayList} from './PlayListInterface'
 import {PopulatedDoc, Document} from "mongoose"
 interface AUser extends Document{
     email: string, 
