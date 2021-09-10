@@ -1,6 +1,14 @@
 import {promisify}  from 'util'
 import redis from 'redis'
-const redisClient = redis.createClient();
+import constants from '../src/config/constants';
+const redisClient = redis
+    .createClient(
+        constants.REDIS_CONFIGURATION.REDIS_PORT,
+        constants.REDIS_CONFIGURATION.REDIS_HOST?constants.REDIS_CONFIGURATION.REDIS_HOST: undefined, 
+        {
+            url: constants.REDIS_CONFIGURATION.REDIS_URL
+        }
+    );
 
 function RedisInitializer(){
     redisClient.on("error", (err) => {
