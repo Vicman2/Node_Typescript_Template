@@ -4,7 +4,7 @@ import constants from '../src/config/constants';
 const redisClient = redis
     .createClient(
         constants.REDIS_CONFIGURATION.REDIS_PORT,
-        constants.REDIS_CONFIGURATION.REDIS_HOST?constants.REDIS_CONFIGURATION.REDIS_HOST: undefined, 
+        undefined, 
         {
             url: constants.REDIS_CONFIGURATION.REDIS_URL
         }
