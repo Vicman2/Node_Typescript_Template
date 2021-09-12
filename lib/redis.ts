@@ -13,7 +13,6 @@ const redisClient = redis
         }
     );
 
-        // Redis not working on heroku 
 
 function RedisInitializer(){
     redisClient.on("error", (err) => {
