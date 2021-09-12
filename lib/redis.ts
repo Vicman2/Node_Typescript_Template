@@ -2,6 +2,7 @@ import {promisify}  from 'util'
 import redis from 'redis'
 import constants from '../src/config/constants';
 const redisClient = redis
+
     .createClient(
         constants.REDIS_CONFIGURATION.REDIS_PORT,
         undefined, 
@@ -9,6 +10,8 @@ const redisClient = redis
             url: constants.REDIS_CONFIGURATION.REDIS_URL
         }
     );
+
+        // Redis not working on heroku 
 
 function RedisInitializer(){
     redisClient.on("error", (err) => {
