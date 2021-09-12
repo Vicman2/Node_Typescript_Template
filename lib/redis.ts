@@ -8,7 +8,8 @@ const redisClient = redis
         constants.REDIS_CONFIGURATION.REDIS_HOST, 
         {
             url: constants.REDIS_CONFIGURATION.REDIS_URL, 
-            password:  constants.REDIS_CONFIGURATION.REDIS_PASSWORD
+            password:  constants.REDIS_CONFIGURATION.REDIS_PASSWORD, 
+            retry_strategy: ()=> 1000
         }
     );
 
