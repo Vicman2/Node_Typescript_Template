@@ -5,10 +5,10 @@ const redisClient = redis
 
     .createClient(
         constants.REDIS_CONFIGURATION.REDIS_PORT,
-        undefined, 
+        constants.REDIS_CONFIGURATION.REDIS_HOST, 
         {
             url: constants.REDIS_CONFIGURATION.REDIS_URL, 
-            tls: constants.REDIS_CONFIGURATION.REDIS_TLS_URL
+            password:  constants.REDIS_CONFIGURATION.REDIS_PASSWORD
         }
     );
 

@@ -28,7 +28,8 @@ const  constants = {
         REDIS_PORT: Number(process.env.REDIS_PORT),
         REDIS_HOST: process.env.REDIS_HOST,
         REDIS_URL: process.env.REDIS_URL, 
-        REDIS_TLS_URL: process.env.REDIS_TLS_URL
+        REDIS_TLS_URL: process.env.REDIS_TLS_URL, 
+        REDIS_PASSWORD: process.env.REDIS_PASSWORD
     }
 }
 
