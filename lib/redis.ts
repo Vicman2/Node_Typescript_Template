@@ -7,7 +7,8 @@ const redisClient = redis
         constants.REDIS_CONFIGURATION.REDIS_PORT,
         undefined, 
         {
-            url: constants.REDIS_CONFIGURATION.REDIS_URL
+            url: constants.REDIS_CONFIGURATION.REDIS_URL, 
+            tls: constants.REDIS_CONFIGURATION.REDIS_TLS_URL
         }
     );
 
