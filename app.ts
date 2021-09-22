@@ -31,7 +31,7 @@ app.use(ErrorMiddleware)
 const port  = constants.PORT || 2021
 server.listen(port, () => {
     database()
-    console.log(`Listening on port ${port}`)
+    console.log(`::: Listening on port ${port}`)
 })
 
 server.on('error', error => {

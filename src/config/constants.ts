@@ -30,6 +30,15 @@ const  constants = {
         REDIS_URL: process.env.REDIS_URL, 
         REDIS_TLS_URL: process.env.REDIS_TLS_URL, 
         REDIS_PASSWORD: process.env.REDIS_PASSWORD
+    }, 
+
+    // Email Configuration
+
+    EMAIL_CONFIGURATION: {
+        EMAIL_USERNAME: process.env.EMAIL_USERNAME || "", 
+        EMAIL_PASSWORD:process.env.EMAIL_PASSWORD || "",
+        EMAIL_HOST:process.env.EMAIL_HOST || "" ,
+        EMAIL_PORT: Number(process.env.EMAIL_PORT) || 587
     }
 }
 

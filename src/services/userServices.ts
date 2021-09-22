@@ -5,6 +5,7 @@ import { encryptData } from '../utility/dataCryto';
 import constants from '../config/constants';
 import sendSignUpEmail from '../utility/emails/emailConfig/SignUpEmailConfig';
 import  mogoose from 'mongoose';
+import { SignUpEmailQueue } from '../utility/queue/emailQueues';
 
 
 
@@ -34,10 +35,12 @@ class UserServices{
         }
 
         // Send Email to user
-        await sendSignUpEmail({
-            name:newUser.firstname, 
+        const queueData = {
+            name: newUser.firstname, 
             email: newUser.email
-        })
+        }
+
+        SignUpEmailQueue.add(queueData)
 
 
         delete dataToSend.password

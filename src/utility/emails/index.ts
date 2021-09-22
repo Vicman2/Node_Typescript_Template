@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer"
+import contants from "../../config/constants";
 import { EmailData } from "../../Interfaces/EmailInterface";
 
 async function emailSender(emailData: EmailData) {
@@ -9,11 +10,11 @@ async function emailSender(emailData: EmailData) {
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
     host: "smtp.ethereal.email",
-    port: 587,
+    port: contants.EMAIL_CONFIGURATION.EMAIL_PORT,
     secure: false, // true for 465, false for other ports
     auth: {
-      user: testAccount.user, // generated ethereal user
-      pass: testAccount.pass, // generated ethereal password
+      user: contants.EMAIL_CONFIGURATION.EMAIL_USERNAME, // generated ethereal user
+      pass: contants.EMAIL_CONFIGURATION.EMAIL_PASSWORD, // generated ethereal password
     },
   });
 
