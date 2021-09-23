@@ -40,7 +40,10 @@ class UserServices{
             email: newUser.email
         }
 
-        SignUpEmailQueue.add(queueData)
+        SignUpEmailQueue.add(queueData, {
+            attempts: 3, 
+            delay: 15000
+        })
 
 
         delete dataToSend.password
